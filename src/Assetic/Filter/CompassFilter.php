@@ -53,6 +53,7 @@ class CompassFilter extends BaseProcessFilter implements DependencyExtractorInte
     private $httpGeneratedImagesPath;
     private $generatedImagesPath;
     private $httpJavascriptsPath;
+    private $extensionsDir;
     private $homeEnv = true;
 
     public function __construct($compassPath = '/usr/bin/compass', $rubyPath = null)
@@ -189,6 +190,11 @@ class CompassFilter extends BaseProcessFilter implements DependencyExtractorInte
         $this->homeEnv = $homeEnv;
     }
 
+    public function setextensionsDir($extensionsDir)
+    {
+        $this->extensionsDir = $extensionsDir;
+    }
+
     public function filterLoad(AssetInterface $asset)
     {
         $root = $asset->getSourceRoot();
@@ -293,6 +299,10 @@ class CompassFilter extends BaseProcessFilter implements DependencyExtractorInte
 
         if ($this->fontsDir) {
             $optionsConfig['fonts_dir'] = $this->fontsDir;
+        }
+
+        if ($this->extensionsDir) {
+            $optionsConfig['extensions_dir'] = $this->extensionsDir;
         }
 
         // options in configuration file
